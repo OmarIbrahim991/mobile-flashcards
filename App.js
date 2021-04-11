@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import MainNav from './navigations'
 
+
 const App = () => {
 	return (
 		<View style={styles.container}>

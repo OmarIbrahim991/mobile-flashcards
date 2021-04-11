@@ -1,12 +1,12 @@
 import React from 'react'
 import { Platform } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import DecksList from '../screens/DecksList'
-import CreateDeck from '../screens/CreateDeck'
+import DeckList from '../screens/DeckList'
+import NewDeck from '../screens/NewDeck'
+
 
 const Tab = Platform.OS === "ios" ? createBottomTabNavigator() : createMaterialTopTabNavigator()
 
@@ -17,10 +17,10 @@ const navOptions = {
                 const iconName = (() => {
                     let result = ""
                     switch(route.name) {
-                        case "Decks List":
+                        case "Decks":
                             result = Platform.OS === "ios" ? "ios-albums" : "cards"
                             break
-                        case "Create Deck":
+                        case "New Deck":
                             result = Platform.OS === "ios" ? "ios-add-circle" : "plus-box"
                             break
                     }
@@ -39,16 +39,15 @@ const navOptions = {
         inactiveTintColor: "gray",
         indicatorStyle: { backgroundColor: "blue" },
     },
+    initialRouteName: "Decks",
 }
 
 const TabNav = () => {
     return (
-        <NavigationContainer>
-            <Tab.Navigator {...navOptions}>
-                <Tab.Screen name="Decks List" component={DecksList} />
-                <Tab.Screen name="Create Deck" component={CreateDeck} />
-            </Tab.Navigator>
-        </NavigationContainer>
+        <Tab.Navigator {...navOptions}>
+            <Tab.Screen name="Decks" component={DeckList} />
+            <Tab.Screen name="New Deck" component={NewDeck} />
+        </Tab.Navigator>
     )
 }
 
