@@ -10,7 +10,7 @@ import NewDeck from '../screens/NewDeck'
 
 const Tab = Platform.OS === "ios" ? createBottomTabNavigator() : createMaterialTopTabNavigator()
 
-const navOptions = {
+const tabNavOptions = {
     screenOptions: ({ route }) => (
         {
             tabBarIcon: ({ focused, size, color }) => {
@@ -44,7 +44,7 @@ const navOptions = {
 
 const TabNav = () => {
     return (
-        <Tab.Navigator {...navOptions}>
+        <Tab.Navigator {...tabNavOptions}>
             <Tab.Screen name="Decks" component={DeckList} />
             <Tab.Screen name="New Deck" component={NewDeck} />
         </Tab.Navigator>

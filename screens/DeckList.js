@@ -1,28 +1,29 @@
 import React from 'react'
-import { ActivityIndicator, Text, ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 import useInitialData from '../hooks/useInitialData'
 import Deck from '../components/Deck'
+import Loading from './Loading'
+import Error from './Error'
 
 
 const DeckList = ({ navigation }) => {
     const [data, loading, error] = useInitialData()
+    const decks = Object.keys(data).map(deckTitle => ({ title: deckTitle, numOfCards: data[deckTitle].questions.length }))
 
-    if (loading === true) { return <ActivityIndicator style={styles.center} size="large" color="blue" /> }
-    if (error === true) { return <Text style={styles.center}>Failed to load data!</Text> }
+    if (loading === true) { return <Loading style={styles.center} size="large" color="blue" /> }
+    if (error === true) { return <Error message="Failed to load data!" /> }
+
+    if (decks.length === 0) { return <Error message="There are no decks to show!" /> }
 
     return (
         <ScrollView style={styles.deckListScreen}>
             {
-                Object.keys(data).map((deckTitle) => (
+                decks.map( ({ title, numOfCards }) => (
                     <Deck
-                        key={deckTitle}
-                        title={deckTitle}
-                        numOfCards={data[deckTitle].questions.length}
-                        nav={navigation}
-                        onPress={() => navigation.navigate("Deck Details", {
-                            title: deckTitle,
-                            numOfCards: data[deckTitle].questions.length
-                        })}
+                        key={title}
+                        title={title}
+                        numOfCards={numOfCards}
+                        onPress={() => navigation.navigate("Deck Details", { title, numOfCards, })}
                     />
                 ))
             }

@@ -1,23 +1,17 @@
 import { useState, useEffect } from 'react'
-import { getInitialData } from '../utils/data'
+import { useDispatch, useSelector } from 'react-redux'
+import { handleLoadDecks } from '../actions/decks'
 
 
 const useInitialData = () => {
+    const data = useSelector(state => state)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
-    const [data, setData] = useState({})
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        getInitialData(5000)
-        .then((resp) => {
-            setData(resp)
-            setLoading(false)
-        })
-        .catch(() => {
-            setError(true)
-            setLoading(false)
-        })
-    }, [])
+        dispatch(handleLoadDecks({ setLoading, setError }))
+    }, [dispatch])
 
     return [data, loading, error]
 }
