@@ -1,12 +1,14 @@
 import React from 'react'
 import { View, Text } from 'react-native'
+import { useSelector } from 'react-redux'
 import Button from '../components/Button'
 import Header from '../components/Header'
-import { decks } from '../utils/data'
+
 
 const DeckDetails = ({ navigation, route }) => {
     const { params } = route
-    const { title, numOfCards } = params
+    const { title } = params
+    const numOfCards = useSelector(state => state.decks[title].questions.length)
 
     return(
         <View style={styles.deckDetailsScreen}>
@@ -16,7 +18,7 @@ const DeckDetails = ({ navigation, route }) => {
             </View>
             <View>
                 <Button onPress={() => navigation.navigate("New Card", { title })} value="Add Card" />
-                <Button onPress={() => navigation.navigate("Quiz", { questions: decks[title].questions })} value="Start Quiz" />
+                <Button onPress={() => navigation.navigate("Quiz", { title })} value="Start Quiz" />
             </View>
         </View>
     )

@@ -4,7 +4,7 @@ import { handleLoadDecks } from '../actions/decks'
 
 
 const useInitialData = () => {
-    const data = useSelector(state => state)
+    const data = useSelector(state => state.decks)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
     const dispatch = useDispatch()

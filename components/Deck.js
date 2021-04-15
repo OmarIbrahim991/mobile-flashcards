@@ -1,8 +1,11 @@
 import React from 'react'
 import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { useSelector } from 'react-redux'
 
 
-const Deck = ({ title, numOfCards=0, ...props }) => {
+const Deck = ({ title, ...props }) => {
+    const numOfCards = useSelector(state => state.decks[title].questions.length)
+
     return (
         <TouchableOpacity style={styles.deck} {...props}>
             <Text style={styles.titleText}>{title}</Text>
@@ -19,7 +22,7 @@ const styles = StyleSheet.create({
         borderColor: "black",
         borderRadius: 12,
         padding: 6,
-        margin: 12,
+        margin: 6,
     },
     titleText: {
         fontSize: 25,

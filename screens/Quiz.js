@@ -1,7 +1,10 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { useSelector } from 'react-redux'
 import Button from '../components/Button'
 import Header from '../components/Header'
+import { removeNotification, setNotification } from '../utils/notifications'
+import Error from './Error'
 
 
 const Quiz = ({ route }) => {
@@ -9,10 +12,31 @@ const Quiz = ({ route }) => {
     const [showAnswer, toggleAnswer] = React.useState(false)
     const [score, setScore] = React.useState(0)
 
-    const { questions } = route.params
+    const { title } = route.params
+    const questions = useSelector(state => state.decks[title].questions)
     const total = questions.length
 
-    if (total === 0) { return <Header>This deck has no cards.</Header> } 
+    const handleCorrect = () => {
+        setScore(currentScore => currentScore + 1)
+        toggleAnswer(false)
+        setIndex(currentIndex => currentIndex + 1)
+    }
+
+    const handleWrong = () => {
+        toggleAnswer(false)
+        setIndex(currentIndex => currentIndex + 1)
+    }
+
+    const toggleVisibility = () => toggleAnswer(current => !current)
+
+    React.useEffect(() => {
+        if (index === total && index !== 0) {
+            removeNotification()
+            .then(setNotification)
+        }
+    }, [index])
+
+    if (total === 0) { return <Error message="This deck has no cards" /> }
     if (index === total) { return <Header>Score: {(score*100/total).toFixed(2)}%</Header> }
 
     return (
@@ -20,14 +44,14 @@ const Quiz = ({ route }) => {
             <View style={styles.section}>
                 <Text style={{ alignSelf: "flex-start"}}>{index + 1}/{total}</Text>
                 {!showAnswer && <Header>{questions[index].question}</Header>}
-                <Button value={showAnswer ? "Question" : "Answer"} />
+                <Button onPress={toggleVisibility} value={showAnswer ? "Question" : "Answer"} />
                 {showAnswer && <Header>{questions[index].answer}</Header>}
             </View>
             {
                 showAnswer &&
                 <View>
-                    <Button value="Correct" btnStyle={{ backgroundColor: "green" }} />
-                    <Button value="Incorrect" btnStyle={{ backgroundColor: "red" }} />
+                    <Button value="Correct" btnStyle={{ backgroundColor: "green" }} onPress={handleCorrect} />
+                    <Button value="Incorrect" btnStyle={{ backgroundColor: "red" }} onPress={handleWrong} />
                 </View>
             }
         </View>

@@ -2,8 +2,7 @@ import React from 'react'
 import { TextInput, StyleSheet } from 'react-native'
 
 
-const Input = ({ inputStyle, ...props }) => {
-    const [text, setText] = React.useState("")
+const Input = ({ inputStyle, text, setText, ...props }) => {
 
     return (
         <TextInput style={[styles.textInput, inputStyle]} value={text} onChangeText={setText} {...props} />
