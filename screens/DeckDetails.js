@@ -3,6 +3,7 @@ import { View, Text } from 'react-native'
 import { useSelector } from 'react-redux'
 import Button from '../components/Button'
 import Header from '../components/Header'
+import { purple } from '../utils/colors'
 
 
 const DeckDetails = ({ navigation, route }) => {
@@ -33,7 +34,8 @@ const styles = {
     center: {
         justifyContent: "center",
         alignItems: "center",
-        textAlign: "center"
+        textAlign: "center",
+        color: purple,
     },
 }
 

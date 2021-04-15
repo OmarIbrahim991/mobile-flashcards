@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, StyleSheet } from 'react-native'
+import { purple } from '../utils/colors'
 
 
 const Header = ({ headerStyle, children }) => (
@@ -13,6 +14,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         margin: 6,
         textAlign: "center",
+        color: purple,
     }
 })
 

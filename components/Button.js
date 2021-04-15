@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { purple, white } from '../utils/colors'
 
 
 const Button = ({ value, btnStyle, textStyle, ...props }) => (
@@ -13,11 +14,11 @@ const styles = StyleSheet.create({
         minWidth: 200,
         padding: 12,
         margin: 24,
-        backgroundColor: "black",
+        backgroundColor: purple,
         borderRadius: 10,
     },
     btnText: {
-        color: "white",
+        color: white,
         textAlign: "center",
     },
 })

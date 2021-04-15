@@ -1,10 +1,9 @@
 import React from 'react'
-import { ScrollView, TouchableOpacity, Text } from 'react-native'
+import { ScrollView } from 'react-native'
 import useInitialData from '../hooks/useInitialData'
 import Deck from '../components/Deck'
 import Loading from './Loading'
 import Error from './Error'
-import { clearDecks } from '../utils/storage'   //to be removed
 
 
 const DeckList = ({ navigation }) => {
@@ -17,11 +16,6 @@ const DeckList = ({ navigation }) => {
 
     return (
         <ScrollView style={styles.deckListScreen}>
-            {/* to be removed  */}
-            <TouchableOpacity onPress={clearDecks} style={{ alignSelf: "center" }}>
-                <Text>Clear All</Text>
-            </TouchableOpacity>
-            {/* to be removed  */}
             {
                 decks.map( ({ title }) => (
                     <Deck

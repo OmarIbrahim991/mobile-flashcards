@@ -18,7 +18,7 @@ const notificationsSettings = {
     },
 }
 
-export const removeNotification = () => (
+export const removeNotifications = () => (
     AsyncStorage.removeItem(NOTIFICATION_KEY)
     .then(Notifications.cancelAllScheduledNotificationsAsync())
 )
@@ -27,7 +27,7 @@ export const setNotification = () => (
     AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
     .then((data) => {
-        if (data === null) {
+        if (data === null || data < new Date().getDate()) {
             Notifications.getPermissionsAsync()
             .then((result) => {
                 if (result.status !== "granted") {
@@ -39,12 +39,12 @@ export const setNotification = () => (
                 if (status !== "granted") { return false }
                 const trigger = new Date()
                 trigger.setDate(trigger.getDate() + 1)
-                trigger.setHours(6)
+                trigger.setHours(16)
                 trigger.setMinutes(0)
                 trigger.setSeconds(0)
                 trigger.setMilliseconds(0)
                 return Notifications.scheduleNotificationAsync({ content: notificationsSettings, trigger, })
-                .then(() => AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true)))
+                .then(() => AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(trigger.getDate())))
             })
         }
     })

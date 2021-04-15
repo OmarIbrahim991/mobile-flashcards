@@ -1,5 +1,6 @@
 import React from 'react'
 import { TextInput, StyleSheet } from 'react-native'
+import { purple } from '../utils/colors'
 
 
 const Input = ({ inputStyle, text, setText, ...props }) => {
@@ -15,6 +16,8 @@ const styles = StyleSheet.create({
         margin: 12,
         padding: 6,
         borderWidth: 1,
+        borderRadius: 8,
+        borderColor: purple,
     },
 })
 

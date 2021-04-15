@@ -6,6 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import DeckList from '../screens/DeckList'
 import NewDeck from '../screens/NewDeck'
+import { gray, purple, white } from '../utils/colors'
 
 
 const Tab = Platform.OS === "ios" ? createBottomTabNavigator() : createMaterialTopTabNavigator()
@@ -35,9 +36,17 @@ const tabNavOptions = {
     tabBarOptions: {
         header: null,
         showIcon: true,
-        activeTintColor: "black",
-        inactiveTintColor: "gray",
-        indicatorStyle: { backgroundColor: "blue" },
+        activeTintColor: purple,
+        inactiveTintColor: gray,
+        indicatorStyle: { backgroundColor: purple },
+        style: {
+            backgroundColor: white,
+            height: 80,
+            shadowColor: "rgba(0, 0, 0, 0.24)",
+            shadowOffset: { width: 0, height: 3 },
+            shadowRadius: 6,
+            shadowOpacity: 1,
+        },
     },
     initialRouteName: "Decks",
 }

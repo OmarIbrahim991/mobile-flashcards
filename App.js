@@ -6,11 +6,16 @@ import MainNav from './navigations'
 import CustomStatusBar from './components/CustomStatusBar'
 import reducer from './reducers'
 import middleware from './middlewares'
+import { setNotification } from './utils/notifications'
 
 
 const store = createStore(reducer, middleware)
 
 const App = () => {
+	React.useEffect(() => {
+		setNotification()
+	}, [])
+
 	return (
 		<Provider store={store}>
 			<View style={styles.container}>
