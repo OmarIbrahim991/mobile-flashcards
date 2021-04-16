@@ -28,6 +28,11 @@ const Quiz = ({ navigation, route }) => {
         setIndex(currentIndex => currentIndex + 1)
     }
 
+    const handleRetakeQuiz = () => {
+        setIndex(0)
+        setScore(0)
+    }
+
     const toggleVisibility = () => toggleAnswer(current => !current)
 
     React.useEffect(() => {
@@ -43,6 +48,7 @@ const Quiz = ({ navigation, route }) => {
             <View style={styles.center}>
                 <Header headerStyle={{ color: purple }}>Score: {(score*100/total).toFixed(2)}%</Header>
                 <Button onPress={() => navigation.navigate("Decks")} value="Go to Decks" />
+                <Button onPress={handleRetakeQuiz} value="Retake this Quiz" />
             </View>
         )
     }
